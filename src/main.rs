@@ -5,7 +5,7 @@ fn main() {
     let mut rng = thread_rng();
     let n: u8 = rng.gen_range(0..=10); // Inclusive Range
     println!("Hello, world!{}", n);
-    request_input();
+    request_input(); //TODO: delete this
 }
 
 fn request_input() {
