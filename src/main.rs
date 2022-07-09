@@ -1,28 +1,16 @@
-use rand::{thread_rng, Rng};
-use std::io;
+use std::env;
+mod ayoze;
+mod helpers;
 
 fn main() {
-    let mut rng = thread_rng();
-    let n: u8 = rng.gen_range(0..=10); // Inclusive Range
-    println!("Hello, world!{}", n);
-    request_input(); //TODO: delete this
-}
-
-fn request_input() {
-    let mut input = String::new();
-    match io::stdin().read_line(&mut input) {
-        Ok(_size) => resolve_input(&input.trim().to_owned()),
-        Err(error) => println!("error: {error}"),
+    let args: Vec<String> = env::args().collect();
+    println!("{:?}", args);
+    //ayoze::spawn_players();
+    let result = ayoze::write_app();
+    if result.is_ok() {
+        println!("Success!");
+    } else {
+        panic!("ERROR {:?}", result.err())
     }
-}
-
-fn resolve_input(input: &str) {
-    let selection = input.parse::<u8>().expect("Error. Provide a valid number!");
-    match selection {
-        1 => println!("1"),
-        _ => {
-            println!("{input} is not an option. Try again.");
-            request_input();
-        }
-    }
+    helpers::io::request_input();
 }
